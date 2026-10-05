@@ -49,3 +49,8 @@ Tabbed file explorer - Extended mode (TabbedExplorerWindow.xaml):
 Known HwndHost issue (ExplorerWindow.xaml):
 
 <img width="722" height="610" alt="Screenshot 2026-10-05 192422" src="https://github.com/user-attachments/assets/eafad3d4-26f8-4ff2-8717-02c73b72e5a8" />
+
+Fixed RibbonWindow via new api usage:
+
+<img width="955" height="622" alt="Screenshot 2026-10-05 193226" src="https://github.com/user-attachments/assets/795921df-0256-4757-896e-8775bdf96223" />
+
