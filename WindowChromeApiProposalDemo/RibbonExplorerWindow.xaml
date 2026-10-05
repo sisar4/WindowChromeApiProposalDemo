@@ -1,0 +1,104 @@
+﻿<RibbonWindow x:Class="WindowChromeApiProposalDemo.RibbonExplorerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ribbon="clr-namespace:System.Windows.Controls.Ribbon;assembly=System.Windows.Controls.Ribbon"
+        xmlns:local="clr-namespace:WindowChromeApiProposalDemo"
+        Title="File Explorer" Width="1100" Height="700" WindowStartupLocation="CenterScreen">
+    <RibbonWindow.Resources>
+        <DrawingImage x:Key="BackIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#0F6CBD" Geometry="M12,3 L3,12 12,21 12,15 21,15 21,9 12,9 Z"/></DrawingImage.Drawing></DrawingImage>
+        <DrawingImage x:Key="ForwardIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#0F6CBD" Geometry="M12,3 L21,12 12,21 12,15 3,15 3,9 12,9 Z"/></DrawingImage.Drawing></DrawingImage>
+        <DrawingImage x:Key="UpIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#0F6CBD" Geometry="M12,3 L21,12 15,12 15,21 9,21 9,12 3,12 Z"/></DrawingImage.Drawing></DrawingImage>
+        <DrawingImage x:Key="RefreshIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#107C10" Geometry="M12,4 A8,8 0 1 0 20,12 L17,12 A5,5 0 1 1 12,7 L12,10 18,5 12,0 Z"/></DrawingImage.Drawing></DrawingImage>
+        <DrawingImage x:Key="FolderIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#F2C14E" Geometry="M2,6 L10,6 12,9 22,9 22,21 2,21 Z"/></DrawingImage.Drawing></DrawingImage>
+        <DrawingImage x:Key="NewFolderIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#F2C14E" Geometry="M2,6 L10,6 12,9 22,9 22,21 2,21 Z M11,12 L13,12 13,14 15,14 15,16 13,16 13,18 11,18 11,16 9,16 9,14 11,14 Z"/></DrawingImage.Drawing></DrawingImage>
+        <DrawingImage x:Key="CopyIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#0078D4" Geometry="M8,3 L19,3 19,17 17,17 17,5 8,5 Z M5,7 L16,7 16,21 5,21 Z M8,10 L13,10 13,12 8,12 Z M8,15 L13,15 13,17 8,17 Z"/></DrawingImage.Drawing></DrawingImage>
+        <DrawingImage x:Key="PasteIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#107C10" Geometry="M8,3 L16,3 17,6 20,6 20,22 4,22 4,6 7,6 Z M10,2 L14,2 15,5 9,5 Z M8,10 L16,10 16,12 8,12 Z M8,15 L16,15 16,17 8,17 Z"/></DrawingImage.Drawing></DrawingImage>
+        <DrawingImage x:Key="CutIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#E74856" Geometry="M6,4 A3,3 0 1 0 6,10 A3,3 0 1 0 6,4 M6,14 A3,3 0 1 0 6,20 A3,3 0 1 0 6,14 M8,8 L19,3 20,5 10,11 20,19 19,21 8,16 Z"/></DrawingImage.Drawing></DrawingImage>
+        <DrawingImage x:Key="DeleteIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#C50F1F" Geometry="M8,3 L16,3 16,5 21,5 21,7 3,7 3,5 8,5 Z M5,9 L19,9 18,22 6,22 Z"/></DrawingImage.Drawing></DrawingImage>
+        <DrawingImage x:Key="RenameIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#5C2D91" Geometry="M3,17 L3,21 7,21 18,10 14,6 Z M16,4 L18,2 22,6 20,8 Z"/></DrawingImage.Drawing></DrawingImage>
+        <DrawingImage x:Key="PaneIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#00B7C3" Geometry="M3,4 L21,4 21,20 3,20 Z M5,6 L5,18 10,18 10,6 Z M12,6 L19,6 19,18 12,18 Z"/></DrawingImage.Drawing></DrawingImage>
+        <DrawingImage x:Key="DesktopIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#0078D4" Geometry="M2,4 L22,4 22,17 2,17 Z M9,19 L15,19 15,21 9,21 Z M11,17 L13,17 13,19 11,19 Z"/></DrawingImage.Drawing></DrawingImage>
+        <DrawingImage x:Key="OpenIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#CA5010" Geometry="M2,7 L10,7 12,10 22,10 20,21 2,21 Z M2,5 L10,5 12,8 2,8 Z"/></DrawingImage.Drawing></DrawingImage>
+        <DrawingImage x:Key="ExitIcon"><DrawingImage.Drawing><GeometryDrawing Brush="#C50F1F" Geometry="M3,3 L14,3 14,7 12,7 12,5 5,5 5,19 12,19 12,17 14,17 14,21 3,21 Z M14,9 L18,9 18,6 22,12 18,18 18,15 14,15 Z"/></DrawingImage.Drawing></DrawingImage>
+    </RibbonWindow.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Inside a RibbonWindow the ribbon draws the quick access toolbar and the tabs in the title bar band. -->
+        <ribbon:Ribbon Grid.Row="0" x:Name="MainRibbon">
+            <!-- Shown while a picture is selected in the folder view. -->
+            <ribbon:Ribbon.ContextualTabGroups>
+                <ribbon:RibbonContextualTabGroup x:Name="PictureTools" Header="Picture Tools" Background="#FFC6358F" Visibility="Collapsed"/>
+            </ribbon:Ribbon.ContextualTabGroups>
+
+            <ribbon:Ribbon.QuickAccessToolBar>
+                <ribbon:RibbonQuickAccessToolBar>
+                    <ribbon:RibbonButton Label="Back" SmallImageSource="{StaticResource BackIcon}" Command="BrowseBack" CommandTarget="{Binding ElementName=Explorer}" ToolTip="Back"/>
+                    <ribbon:RibbonButton Label="Forward" SmallImageSource="{StaticResource ForwardIcon}" Command="BrowseForward" CommandTarget="{Binding ElementName=Explorer}" ToolTip="Forward"/>
+                    <ribbon:RibbonButton Label="Up" SmallImageSource="{StaticResource UpIcon}" Command="{x:Static local:FileExplorerControl.GoUpCommand}" CommandTarget="{Binding ElementName=Explorer}" ToolTip="Up one level"/>
+                </ribbon:RibbonQuickAccessToolBar>
+            </ribbon:Ribbon.QuickAccessToolBar>
+
+            <ribbon:Ribbon.ApplicationMenu>
+                <ribbon:RibbonApplicationMenu Label="File">
+                    <ribbon:RibbonApplicationMenuItem Header="Open in File Explorer" ImageSource="{StaticResource OpenIcon}" Click="OpenInShell_Click"/>
+                    <ribbon:RibbonApplicationMenuItem Header="Close" ImageSource="{StaticResource ExitIcon}" Command="{x:Static SystemCommands.CloseWindowCommand}"/>
+                </ribbon:RibbonApplicationMenu>
+            </ribbon:Ribbon.ApplicationMenu>
+
+            <ribbon:RibbonTab Header="Home">
+                <ribbon:RibbonGroup Header="Navigation">
+                    <ribbon:RibbonButton Label="Back" LargeImageSource="{StaticResource BackIcon}" Command="BrowseBack" CommandTarget="{Binding ElementName=Explorer}"/>
+                    <ribbon:RibbonButton Label="Forward" LargeImageSource="{StaticResource ForwardIcon}" Command="BrowseForward" CommandTarget="{Binding ElementName=Explorer}"/>
+                    <ribbon:RibbonButton Label="Up" LargeImageSource="{StaticResource UpIcon}" Command="{x:Static local:FileExplorerControl.GoUpCommand}" CommandTarget="{Binding ElementName=Explorer}"/>
+                    <ribbon:RibbonButton Label="Refresh" LargeImageSource="{StaticResource RefreshIcon}" Command="Refresh" CommandTarget="{Binding ElementName=Explorer}"/>
+                </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup Header="Clipboard">
+                    <ribbon:RibbonButton Label="Paste" LargeImageSource="{StaticResource PasteIcon}" ToolTip="Demo only"/>
+                    <ribbon:RibbonButton Label="Copy" SmallImageSource="{StaticResource CopyIcon}" ToolTip="Demo only"/>
+                    <ribbon:RibbonButton Label="Cut" SmallImageSource="{StaticResource CutIcon}" ToolTip="Demo only"/>
+                </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup Header="Organize">
+                    <ribbon:RibbonButton Label="Delete" LargeImageSource="{StaticResource DeleteIcon}" ToolTip="Demo only"/>
+                    <ribbon:RibbonButton Label="Rename" LargeImageSource="{StaticResource RenameIcon}" ToolTip="Demo only"/>
+                </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup Header="New">
+                    <ribbon:RibbonButton Label="New folder" LargeImageSource="{StaticResource NewFolderIcon}" ToolTip="Demo only"/>
+                </ribbon:RibbonGroup>
+            </ribbon:RibbonTab>
+
+            <ribbon:RibbonTab Header="Share">
+                <ribbon:RibbonGroup Header="Send">
+                    <ribbon:RibbonButton Label="Open in File Explorer" LargeImageSource="{StaticResource FolderIcon}" Click="OpenInShell_Click"/>
+                </ribbon:RibbonGroup>
+            </ribbon:RibbonTab>
+
+            <ribbon:RibbonTab Header="Manage" ContextualTabGroupHeader="Picture Tools">
+                <ribbon:RibbonGroup Header="Set as">
+                    <ribbon:RibbonButton x:Name="SetWallpaperButton" Label="Set as desktop background" LargeImageSource="{StaticResource DesktopIcon}"
+                                         ToolTip="Sets the selected picture as the desktop wallpaper" Click="SetWallpaper_Click"/>
+                </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup Header="Open">
+                    <ribbon:RibbonButton Label="Open picture" LargeImageSource="{StaticResource PaneIcon}" Click="OpenPicture_Click"/>
+                </ribbon:RibbonGroup>
+            </ribbon:RibbonTab>
+
+            <ribbon:RibbonTab Header="View">
+                <ribbon:RibbonGroup Header="Panes">
+                    <ribbon:RibbonToggleButton Label="Navigation pane" LargeImageSource="{StaticResource PaneIcon}"
+                                               IsChecked="{Binding IsTreeVisible, ElementName=Explorer, Mode=TwoWay}"/>
+                </ribbon:RibbonGroup>
+                <ribbon:RibbonGroup Header="Show/hide">
+                    <ribbon:RibbonCheckBox Label="Address bar" IsChecked="{Binding IsNavigationBarVisible, ElementName=Explorer, Mode=TwoWay}"/>
+                    <ribbon:RibbonCheckBox Label="Status bar" IsChecked="{Binding IsStatusBarVisible, ElementName=Explorer, Mode=TwoWay}"/>
+                </ribbon:RibbonGroup>
+            </ribbon:RibbonTab>
+        </ribbon:Ribbon>
+
+        <local:FileExplorerControl Grid.Row="1" x:Name="Explorer"/>
+    </Grid>
+</RibbonWindow>

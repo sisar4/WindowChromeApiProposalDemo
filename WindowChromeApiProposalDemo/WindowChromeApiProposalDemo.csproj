@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net11.0-windows</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <!-- Window.ThemeMode is marked experimental (WPF0001). -->
+    <NoWarn>$(NoWarn);WPF0001</NoWarn>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <!-- The demo uses the WindowChrome APIs of the local WPF fork, not the ones shipped with the SDK. -->
+  <PropertyGroup>
+    <WpfRepoRoot>D:\wpf</WpfRepoRoot>
+    <WpfConfig>Debug</WpfConfig>
+  </PropertyGroup>
+  <Import Project="$(WpfRepoRoot)\eng\wpf-debug.targets" />
+  <!-- The fork is built against newer WinForms/System.Drawing packages than the runtime ships: reference the package
+       assemblies directly so they are app-local and win over the runtime copies. -->
+  <Import Project="$(WpfRepoRoot)\eng\Version.Details.props" />
+  <ItemGroup>
+    <Reference Include="$(NuGetPackageRoot)microsoft.private.winforms\$(MicrosoftPrivateWinformsPackageVersion)\lib\net11.0\System.Private.Windows.Core.dll" />
+    <Reference Include="$(NuGetPackageRoot)microsoft.private.winforms\$(MicrosoftPrivateWinformsPackageVersion)\lib\net11.0\System.Private.Windows.GdiPlus.dll" />
+    <Reference Include="$(NuGetPackageRoot)system.drawing.common\$(SystemDrawingCommonPackageVersion)\lib\net11.0\System.Drawing.Common.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\*.png" />
+    <Resource Include="img\*.bmp" />
+  </ItemGroup>
+
+</Project>

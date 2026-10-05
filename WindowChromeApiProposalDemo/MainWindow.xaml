@@ -1,0 +1,102 @@
+﻿<Window x:Class="WindowChromeApiProposalDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WindowChromeApiProposalDemo"
+        mc:Ignorable="d"
+        Title="WindowChrome API demo" Height="560" Width="760" WindowStartupLocation="CenterScreen"
+        ThemeMode="System">
+    <Window.Resources>
+        <!-- One button per scenario: Tag is the type of the window it opens. -->
+        <Style x:Key="Scenario" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+        <Style x:Key="Glyph" TargetType="TextBlock">
+            <Setter Property="DockPanel.Dock" Value="Left"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="FontFamily" Value="{StaticResource IconFont}"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="ScenarioTitle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style x:Key="ScenarioText" TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Opacity" Value="0.7"/>
+            <Setter Property="Margin" Value="0,2,0,0"/>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel Margin="24">
+        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,16">
+            <TextBlock Text="WindowChrome API proposal" FontSize="24" FontWeight="SemiBold"/>
+            <TextBlock TextWrapping="Wrap" Opacity="0.7" Margin="0,4,0,0"
+                       Text="Each scenario opens a window built with the new WindowChrome properties: FrameMode, BackdropType, GlassFrameThickness, TitleBarBounds, CaptionButtonRole..."/>
+        </StackPanel>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="Scenarios">
+                <Button Style="{StaticResource Scenario}" Tag="{x:Type local:ExplorerWindow}" Click="Open_Click">
+                    <DockPanel>
+                        <TextBlock Style="{StaticResource Glyph}" Text="&#xEC50;"/>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource ScenarioTitle}" Text="File Explorer: native control over glass (known issue)"/>
+                            <TextBlock Style="{StaticResource ScenarioText}" Text="ExtendedClientArea + Mica over the whole window, with a native control on top (the folder view of the WebBrowser, a Win32 window): its text is drawn on transparent pixels and gets lost in the backdrop. Painting a background is not enough, the glass has to be removed behind the control, as the other explorer demos do."/>
+                        </StackPanel>
+                    </DockPanel>
+                </Button>
+                <Button Style="{StaticResource Scenario}" Tag="{x:Type local:TabbedExplorerWindow}" Click="Open_Click">
+                    <DockPanel>
+                        <TextBlock Style="{StaticResource Glyph}" Text="&#xE8F4;"/>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource ScenarioTitle}" Text="File Explorer with tabs"/>
+                            <TextBlock Style="{StaticResource ScenarioText}" Text="WPF tabs (Fluent theme) in the title bar, like Windows 11, with the Tabbed (Mica Alt) backdrop only behind the tabs and the address bar."/>
+                        </StackPanel>
+                    </DockPanel>
+                </Button>
+                <Button Style="{StaticResource Scenario}" Tag="{x:Type local:RibbonExplorerWindow}" Click="Open_Click">
+                    <DockPanel>
+                        <TextBlock Style="{StaticResource Glyph}" Text="&#xE8A1;"/>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource ScenarioTitle}" Text="File Explorer with Ribbon"/>
+                            <TextBlock Style="{StaticResource ScenarioText}" Text="RibbonWindow: the ribbon tabs and quick access toolbar in the non-client area, with a contextual tab for pictures."/>
+                        </StackPanel>
+                    </DockPanel>
+                </Button>
+                <Button Style="{StaticResource Scenario}" Tag="{x:Type local:OrchardExplorerWindow}" Click="Open_Click">
+                    <DockPanel>
+                        <TextBlock Style="{StaticResource Glyph}" Text="&#xE81E;"/>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource ScenarioTitle}" Text="File Explorer, Orchard OS 'Spotted Cat' style"/>
+                            <TextBlock Style="{StaticResource ScenarioText}" Text="Custom FrameMode: caption buttons drawn on the left with CaptionButtonRole (hover/pressed driven by the chrome)."/>
+                        </StackPanel>
+                    </DockPanel>
+                </Button>
+                <Button Style="{StaticResource Scenario}" Tag="{x:Type local:SnippingToolWindow}" Click="Open_Click">
+                    <DockPanel>
+                        <TextBlock Style="{StaticResource Glyph}" Text="&#xF7ED;"/>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource ScenarioTitle}" Text="Snipping Tool"/>
+                            <TextBlock Style="{StaticResource ScenarioText}" Text="Fully acrylic window: Acrylic BackdropType and negative GlassFrameThickness."/>
+                        </StackPanel>
+                    </DockPanel>
+                </Button>
+                <Button Style="{StaticResource Scenario}" Tag="{x:Type local:TaskManagerWindow}" Click="Open_Click">
+                    <DockPanel>
+                        <TextBlock Style="{StaticResource Glyph}" Text="&#xE9D9;"/>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource ScenarioTitle}" Text="Task Manager"/>
+                            <TextBlock Style="{StaticResource ScenarioText}" Text="Acrylic only on top and on the left: GlassFrameThickness with explicit margins, the rest is an opaque card."/>
+                        </StackPanel>
+                    </DockPanel>
+                </Button>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>
